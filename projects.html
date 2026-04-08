@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Shah - Projects</title>
+    <meta name="description" content="Personal portfolio of Meet Shah, showcasing projects and skills.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0a0a0f',
+                        primary: '#7c3aed', // Electric violet
+                        secondary: '#f59e0b', // Amber/Warm Accent
+                        cardBg: 'rgba(255, 255, 255, 0.03)',
+                        cardBorder: 'rgba(255, 255, 255, 0.08)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'gradient-text': 'gradientText 8s ease infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        gradientText: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .glass-card {
+                @apply bg-cardBg backdrop-blur-xl border border-cardBorder rounded-2xl;
+            }
+            .text-gradient {
+                @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-[#a78bfa] to-secondary animate-gradient-text;
+                background-size: 200% auto;
+            }
+            .reveal {
+                @apply opacity-0 translate-y-8 transition-all duration-1000 ease-out;
+            }
+            .reveal.active {
+                @apply opacity-100 translate-y-0;
+            }
+        }
+        
+        body {
+            background-color: #0a0a0f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a35;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary/30 selection:text-white flex flex-col min-h-screen">
+
+    <!-- Custom Cursor Aura (Desktop Only) -->
+    <div id="custom-cursor" class="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] mix-blend-screen hidden md:block -translate-x-1/2 -translate-y-1/2">
+        <div class="absolute inset-0 bg-primary rounded-full opacity-50 blur-[10px] transform scale-100 transition-transform duration-300 ring-2 ring-white/20" id="cursor-glow"></div>
+        <div class="absolute inset-[10px] bg-white rounded-full shadow-[0_0_15px_#fff]"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="absolute inset-0 bg-darkBg/60 backdrop-blur-md border-b border-white/5 opacity-0 transition-opacity duration-300" id="nav-backdrop"></div>
+        <div class="container mx-auto px-6 py-5 flex items-center justify-between relative z-10">
+            <a href="index.html" class="text-xl font-display font-bold text-white tracking-widest hover:text-primary transition-colors magnetic">Meet Shah.</a>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex gap-10">
+                <a href="index.html" class="nav-link text-sm font-medium text-white/60 hover:text-white transition-colors relative group">
+                    Home
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full hidden"></span>
+                </a>
+                <a href="projects.html" class="nav-link text-sm font-medium text-white/60 hover:text-white transition-colors relative group">
+                    Projects
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full hidden"></span>
+                </a>
+                <a href="contact.html" class="nav-link text-sm font-medium text-white/60 hover:text-white transition-colors relative group">
+                    Contact
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full hidden"></span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-white/70 hover:text-white p-2" aria-label="Toggle Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-20">
+        <!-- PROJECTS PAGE -->
+        <section id="projects" class="py-24 relative z-10">
+            <!-- Background Accent -->
+            <div class="absolute inset-0 bg-white/[0.01] z-0 pointer-events-none"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="reveal text-center mb-20">
+                    <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Selected Work</h2>
+                    <p class="text-gray-400 font-light max-w-2xl mx-auto text-lg md:text-xl">[A showcase of my recent academic studies and personal creative coding projects.]</p>
+                </div>
+
+                <!-- Academic Projects Accordion -->
+                <div class="mb-32 reveal">
+                    <div class="flex items-center gap-6 mb-12">
+                        <h3 class="text-3xl font-display font-bold text-white whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">Academic Projects</h3>
+                        <div class="flex-grow h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+                    </div>
+
+                    <div class="space-y-6 max-w-5xl mx-auto">
+                        
+                        <!-- Accordion Item 1: Semester 1 -->
+                        <div class="glass-card overflow-hidden shadow-lg border border-white/10 group">
+                            <button class="accordion-header w-full flex items-center justify-between p-6 md:p-8 cursor-pointer bg-white/[0.01] hover:bg-white/[0.03] transition-colors focus:outline-none">
+                                <div class="flex items-center gap-5">
+                                    <span class="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors tracking-tight">Semester 1 (Sept 2024 - Jan 2025)</span>
+                                    <span class="px-3 py-1 bg-primary/10 text-primary text-xs md:text-sm rounded-full font-semibold border border-primary/20 shadow-[0_0_10px_rgba(124,58,237,0.1)]">8 Assignments</span>
+                                </div>
+                                <i class="fas fa-chevron-down text-white/50 text-xl transition-transform duration-500 accordion-icon group-hover:text-white transform rotate-180"></i>
+                            </button>
+                            
+                            <!-- Accordion Content (Open by default for demo) -->
+                            <div class="accordion-content overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] bg-gradient-to-b from-black/40 to-transparent" style="max-height: 2000px;">
+                                <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 border-t border-white/5">
+                                    
+                                    <!-- Template Card: AI in Business -->
+                                    <div class="group/card relative rounded-2xl overflow-hidden bg-darkBg border border-white/10 hover:border-primary/50 transition-colors duration-500 shadow-xl flex flex-col h-full p-8">
+                                        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                        
+                                        <div class="flex justify-between items-start mb-4 relative z-10">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl border border-primary/20 shadow-[0_0_15px_rgba(124,58,237,0.1)]">
+                                                    <i class="fas fa-robot"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-xl font-bold text-white group-hover/card:text-primary transition-colors">AI in Business</h4>
+                                                    <span class="text-sm text-gray-400">Assignment 1</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <p class="text-gray-400 mb-8 leading-relaxed flex-grow relative z-10 text-sm">[A brief 1-2 sentence description of what AI implementation was analyzed or proposed in this assignment.]</p>
+                                        
+                                        <!-- Resource Pills -->
+                                        <div class="flex flex-col gap-3 relative z-10">
+                                            <h5 class="text-xs uppercase tracking-widest text-gray-500 font-semibold mb-1">Resources</h5>
+                                            
+                                            <a href="D:\Business analysis Assignments\Sem 1\Assignment 1\Ai in Business\OWL7209 Assignment Brief 1.pdf" class="magnetic flex items-center gap-3 text-sm bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg transition-colors text-gray-300 hover:text-white w-full">
+                                                <i class="fas fa-file-alt text-gray-400"></i> <span class="flex-grow">Problem Statement</span> <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                                            </a>
+                                            
+                                            <a href="D:\Business analysis Assignments\Sem 1\Assignment 1\Ai in Business\CarRentalData.csv" class="magnetic flex items-center gap-3 text-sm bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg transition-colors text-gray-300 hover:text-white w-full">
+                                                <i class="fas fa-database text-secondary"></i> <span class="flex-grow">Raw Data (CarRentalData.csv)</span> <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                                            </a>
+                                            
+                                            <a href="D:\Business analysis Assignments\Sem 1\Assignment 1\Ai in Business\Meet Shah - AI in Business.mp4" class="magnetic flex items-center gap-3 text-sm bg-white/5 hover:bg-primary/20 border border-white/10 hover:border-primary/50 px-4 py-2.5 rounded-lg transition-colors text-white w-full">
+                                                <i class="fas fa-video text-primary"></i> <span class="flex-grow font-medium">Report: Video Presentation</span> <i class="fas fa-play text-xs opacity-50"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Template Card: HR Analytics -->
+                                    <div class="group/card relative rounded-2xl overflow-hidden bg-darkBg border border-white/10 hover:border-[#06b6d4]/50 transition-colors duration-500 shadow-xl flex flex-col h-full p-8">
+                                        <div class="absolute top-0 right-0 w-32 h-32 bg-[#06b6d4]/10 rounded-full blur-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                                        
+                                        <div class="flex justify-between items-start mb-4 relative z-10">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-12 h-12 rounded-xl bg-[#06b6d4]/10 text-[#06b6d4] flex items-center justify-center text-xl border border-[#06b6d4]/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                                                    <i class="fas fa-users"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-xl font-bold text-white group-hover/card:text-[#06b6d4] transition-colors">HR Analytics</h4>
+                                                    <span class="text-sm text-gray-400">Assignment 1</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <p class="text-gray-400 mb-8 leading-relaxed flex-grow relative z-10 text-sm">[Storytelling and Data Visualisation of HR attrition, transforming complex workforce data into actionable insights.]</p>
+                                        
+                                        <!-- Resource Pills -->
+                                        <div class="flex flex-col gap-3 relative z-10">
+                                            <h5 class="text-xs uppercase tracking-widest text-gray-500 font-semibold mb-1">Resources</h5>
+                                            
+                                            <a href="D:\Business analysis Assignments\Sem 1\Assignment 1\HR analytics\Story board idea for HR analysis project.docx" class="magnetic flex items-center gap-3 text-sm bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg transition-colors text-gray-300 hover:text-white w-full">
+                                                <i class="fas fa-file-alt text-gray-400"></i> <span class="flex-grow">Problem Statement (Storyboard)</span> <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                                            </a>
+                                            
+                                            <a href="D:\Business analysis Assignments\Sem 1\Assignment 1\HR analytics\Data Visualisation and Storytelling - Assignment1.twb" class="magnetic flex items-center gap-3 text-sm bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-lg transition-colors text-gray-300 hover:text-white w-full">
+                                                <i class="fas fa-code text-[#06b6d4]"></i> <span class="flex-grow">Technical Code (Tableau .twb)</span> <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                                            </a>
+                                            
+                                            <a href="D:\Business analysis Assignments\Sem 1\Assignment 1\HR analytics\Data Visualisation and Storytelling - Assignment1.pptx" class="magnetic flex items-center gap-3 text-sm bg-white/5 hover:bg-[#06b6d4]/20 border border-white/10 hover:border-[#06b6d4]/50 px-4 py-2.5 rounded-lg transition-colors text-white w-full">
+                                                <i class="fas fa-chart-pie text-[#06b6d4]"></i> <span class="flex-grow font-medium">Report: Visualisation PPT</span> <i class="fas fa-download text-xs opacity-50"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="p-6 text-center text-gray-500 text-sm border-t border-white/5 bg-black/20">
+                                    [+ 6 more Semester 1 assignments will go here in this same layout]
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Accordion Item 2: Semester 2 Placeholder -->
+                        <div class="glass-card overflow-hidden shadow-lg border border-white/10 group opacity-80 hover:opacity-100 transition-opacity">
+                            <button class="accordion-header w-full flex items-center justify-between p-6 md:p-8 cursor-pointer bg-white/[0.01] hover:bg-white/[0.03] transition-colors focus:outline-none">
+                                <div class="flex items-center gap-5">
+                                    <span class="text-xl md:text-2xl font-bold text-white group-hover:text-secondary transition-colors tracking-tight">Semester 2 (Jan 2025 - May 2025)</span>
+                                    <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs md:text-sm rounded-full font-semibold border border-secondary/20 shadow-[0_0_10px_rgba(245,158,11,0.1)]">7 Assignments</span>
+                                </div>
+                                <i class="fas fa-chevron-down text-white/50 text-xl transition-transform duration-500 accordion-icon group-hover:text-white"></i>
+                            </button>
+                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-black/40">
+                                <div class="p-8 text-center text-gray-500 border-t border-white/5">
+                                    [Semester 2 assignment cards will be dynamically populated here]
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Accordion Item 3: Dissertation Placeholder -->
+                        <div class="glass-card overflow-hidden shadow-lg border border-white/10 group opacity-80 hover:opacity-100 transition-opacity">
+                            <button class="accordion-header w-full flex items-center justify-between p-6 md:p-8 cursor-pointer bg-white/[0.01] hover:bg-white/[0.03] transition-colors focus:outline-none">
+                                <div class="flex items-center gap-5">
+                                    <span class="text-xl md:text-2xl font-bold text-white group-hover:text-red-400 transition-colors tracking-tight">Dissertation (Summer 2025)</span>
+                                    <span class="px-3 py-1 bg-red-400/10 text-red-400 text-xs md:text-sm rounded-full font-semibold border border-red-400/20 shadow-[0_0_10px_rgba(248,113,113,0.1)]">Final Project</span>
+                                </div>
+                                <i class="fas fa-chevron-down text-white/50 text-xl transition-transform duration-500 accordion-icon group-hover:text-white"></i>
+                            </button>
+                            <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-black/40">
+                                <div class="p-8 text-center text-gray-500 border-t border-white/5">
+                                    [Dissertation deep dive, technical reports, and explainable AI documents will be populated here]
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Personal Projects Bento Grid -->
+                <div class="reveal mt-32">
+                    <div class="flex items-center gap-6 mb-12">
+                        <h3 class="text-3xl font-display font-bold text-white whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">Personal Projects</h3>
+                        <div class="flex-grow h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[300px]">
+                        
+                        <!-- Large Bento Card (Spans 2 columns, 2 rows) -->
+                        <a href="#" class="md:col-span-2 md:row-span-2 group glass-card p-1 flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_50px_-15px_rgba(124,58,237,0.4)] hover:border-primary/50 transition-all duration-500 relative overflow-hidden block">
+                            <!-- Background Lift Glow -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-black opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"></div>
+                            
+                            <div class="m-6 mb-0 relative z-10 w-auto rounded-xl border border-white/10 overflow-hidden bg-black flex-grow h-64 md:h-auto">
+                                <img src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?fit=crop&w=1200&q=80" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-700 ease-out group-hover:scale-105" alt="Flagship Project">
+                            </div>
+
+                            <div class="relative z-10 p-8 pt-6">
+                                <h4 class="text-3xl font-display font-bold text-white mb-3 group-hover:text-primary transition-colors">[Flagship OS App]</h4>
+                                <p class="text-gray-400 text-base md:text-lg mb-6 max-w-2xl leading-relaxed">
+                                    <strong class="text-gray-200 block text-sm mb-1 uppercase tracking-wider font-semibold">The Problem</strong> 
+                                    [Built to streamline redundant deployment tasks gracefully, replacing a clunky manual script with an elegant desktop interface.]
+                                </p>
+                                <div class="flex flex-wrap gap-3">
+                                    <span class="px-4 py-1.5 bg-white/5 text-sm rounded-full text-gray-300 border border-white/10 shadow-sm">React</span>
+                                    <span class="px-4 py-1.5 bg-white/5 text-sm rounded-full text-gray-300 border border-white/10 shadow-sm">Electron</span>
+                                    <span class="px-4 py-1.5 bg-white/5 text-sm rounded-full text-gray-300 border border-white/10 shadow-sm">Tailwind CSS</span>
+                                </div>
+                            </div>
+                        </a>
+                        
+                        <!-- Small Bento Card 1 -->
+                        <a href="#" class="group glass-card p-8 flex flex-col justify-between hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(6,182,212,0.4)] hover:border-[#06b6d4]/50 transition-all duration-500 relative overflow-hidden block">
+                            <!-- Accent Glow -->
+                            <div class="absolute -right-16 -top-16 w-48 h-48 bg-[#06b6d4]/20 rounded-full blur-[40px] group-hover:bg-[#06b6d4]/30 transition-colors duration-500 pointer-events-none"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="w-14 h-14 bg-gradient-to-br from-[#06b6d4]/20 to-black/40 text-[#06b6d4] rounded-xl flex items-center justify-center mb-8 text-2xl border border-[#06b6d4]/20 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                                    <i class="fas fa-terminal"></i>
+                                </div>
+                                <h4 class="text-2xl font-display font-bold text-white mb-3 group-hover:text-[#06b6d4] transition-colors">[CLI Tool]</h4>
+                                <p class="text-gray-400 text-sm mb-8 leading-relaxed">
+                                    [A blazingly fast terminal utility written in Rust that automates local dev environment configs in milliseconds.]
+                                </p>
+                            </div>
+                            <div class="relative z-10 flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-black/40 text-xs font-semibold rounded-lg text-gray-300 border border-white/10">Rust</span>
+                                <span class="px-3 py-1 bg-black/40 text-xs font-semibold rounded-lg text-gray-300 border border-white/10">Clap</span>
+                            </div>
+                        </a>
+
+                        <!-- Small Bento Card 2 -->
+                        <a href="#" class="group glass-card p-8 flex flex-col justify-between hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.4)] hover:border-secondary/50 transition-all duration-500 relative overflow-hidden block">
+                            <!-- Accent Glow -->
+                            <div class="absolute -left-16 -bottom-16 w-48 h-48 bg-secondary/20 rounded-full blur-[40px] group-hover:bg-secondary/30 transition-colors duration-500 pointer-events-none"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="w-14 h-14 bg-gradient-to-br from-secondary/20 to-black/40 text-secondary rounded-xl flex items-center justify-center mb-8 text-2xl border border-secondary/20 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <h4 class="text-2xl font-display font-bold text-white mb-3 group-hover:text-secondary transition-colors">[App Concept]</h4>
+                                <p class="text-gray-400 text-sm mb-8 leading-relaxed">
+                                    [Exploring fluid micro-interactions and haptic feedback in a minimalist health & habit tracking interface.]
+                                </p>
+                            </div>
+                            <div class="relative z-10 flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-black/40 text-xs font-semibold rounded-lg text-gray-300 border border-white/10">Figma</span>
+                                <span class="px-3 py-1 bg-black/40 text-xs font-semibold rounded-lg text-gray-300 border border-white/10">ProtoPie</span>
+                            </div>
+                        </a>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer subtle text -->
+    <footer class="w-full text-center text-gray-600 text-sm font-medium tracking-widest uppercase pb-6 pt-10 mt-auto bg-black border-t border-white/5">
+        © <span id="year"></span> Meet Shah. All Rights Reserved.
+    </footer>
+
+    <!-- JavaScript Interactive Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // Set current year
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.querySelector('.md\\:flex');
+            
+            // Sticky glassy nav behavior
+            const navBackdrop = document.getElementById('nav-backdrop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navBackdrop.classList.remove('opacity-0');
+                    navBackdrop.classList.add('opacity-100');
+                } else {
+                    navBackdrop.classList.add('opacity-0');
+                    navBackdrop.classList.remove('opacity-100');
+                }
+            });
+
+            // Smooth Scroll Reveal with Intersection Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Custom Cursor Aura
+            const cursor = document.getElementById("custom-cursor");
+            const cursorGlow = document.getElementById("cursor-glow");
+            
+            if (cursor && window.matchMedia("(min-width: 768px)").matches) {
+                let mouseX = window.innerWidth / 2;
+                let mouseY = window.innerHeight / 2;
+                let cursorX = mouseX;
+                let cursorY = mouseY;
+                
+                // Track mouse
+                document.addEventListener("mousemove", (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+
+                // Smooth follow animation loop
+                function animateCursor() {
+                    let ease = 0.15;
+                    cursorX += (mouseX - cursorX) * ease;
+                    cursorY += (mouseY - cursorY) * ease;
+                    
+                    cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+
+                // Interactive elements expand cursor glow
+                const interactables = document.querySelectorAll('a, button, input, textarea, .accordion-header, .magnetic-img');
+                interactables.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursorGlow.classList.replace('scale-100', 'scale-150');
+                        cursorGlow.classList.replace('opacity-50', 'opacity-80');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursorGlow.classList.replace('scale-150', 'scale-100');
+                        cursorGlow.classList.replace('opacity-80', 'opacity-50');
+                    });
+                });
+            }
+
+            // Magnetic Button Effect
+            const magneticElements = document.querySelectorAll('.magnetic');
+            magneticElements.forEach((elem) => {
+                elem.addEventListener('mousemove', (e) => {
+                    const rect = elem.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    // Limit translation
+                    elem.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                });
+                
+                elem.addEventListener('mouseleave', () => {
+                    elem.style.transform = ''; // reset to class defaults
+                });
+            });
+            
+            // Accordion Logic
+            const accordions = document.querySelectorAll('.accordion-header');
+            accordions.forEach(acc => {
+                acc.addEventListener('click', () => {
+                    const content = acc.nextElementSibling;
+                    const icon = acc.querySelector('.accordion-icon');
+                    
+                    if(content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.classList.remove('rotate-180');
+                        acc.classList.remove('bg-white/[0.03]');
+                    } else {
+                        accordions.forEach(other => {
+                            if(other !== acc) {
+                                other.nextElementSibling.style.maxHeight = null;
+                                other.querySelector('.accordion-icon').classList.remove('rotate-180');
+                                other.classList.remove('bg-white/[0.03]');
+                            }
+                        });
+                        
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.classList.add('rotate-180');
+                        acc.classList.add('bg-white/[0.03]');
+                    }
+                });
+            });
+            
+            // Active Link Highlighting in Nav (Updated for Multi-page)
+            const navItems = document.querySelectorAll('.nav-link');
+            const currentPath = window.location.pathname;
+            
+            navItems.forEach(item => {
+                item.classList.remove('text-white');
+                item.classList.add('text-white/60');
+                const indicator = item.querySelector('span');
+                if(indicator) indicator.classList.remove('w-full', 'block');
+                if(indicator) indicator.classList.add('w-0', 'hidden');
+                
+                const href = item.getAttribute('href');
+                if (currentPath.endsWith(href) || (currentPath.endsWith('/') && href === 'index.html')) {
+                    item.classList.add('text-white');
+                    item.classList.remove('text-white/60');
+                    if(indicator) {
+                        indicator.classList.remove('w-0', 'hidden');
+                        indicator.classList.add('w-full', 'block');
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
