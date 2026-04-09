@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Shah - Home</title>
-    <meta name="description" content="Personal portfolio of Meet Shah, showcasing projects and skills.">
+    <title>Meet Shah - Data Analyst</title>
+    <meta name="description" content="Personal portfolio of Meet Shah, showcasing Business Analytics projects and skills.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -21,490 +20,344 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0a0a0f',
-                        primary: '#7c3aed', // Electric violet
-                        secondary: '#f59e0b', // Amber/Warm Accent
-                        cardBg: 'rgba(255, 255, 255, 0.03)',
-                        cardBorder: 'rgba(255, 255, 255, 0.08)',
+                        darkBg: '#080812',          
+                        surface: 'rgba(30, 30, 46, 0.4)',   
+                        surfaceHover: 'rgba(40, 40, 60, 0.6)', 
+                        borderColors: 'rgba(255, 255, 255, 0.08)',
+                        accentPrimary: '#0ea5e9',   // Sky Blue
+                        accentSecondary: '#cbd5e1', // Light Slate
+                        textMuted: '#94A3B8',       
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Syne', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
-                    animation: {
-                        'blob': 'blob 7s infinite',
-                        'gradient-text': 'gradientText 8s ease infinite',
-                        'spin-slow': 'spin 20s linear infinite',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        gradientText: {
-                            '0%, 100%': { backgroundPosition: '0% 50%' },
-                            '50%': { backgroundPosition: '100% 50%' },
-                        }
+                    boxShadow: {
+                        'neon': '0 0 15px rgba(14, 165, 233, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
                     }
                 }
             }
         }
     </script>
-
     <style type="text/tailwindcss">
         @layer utilities {
-            .glass-card {
-                @apply bg-cardBg backdrop-blur-xl border border-cardBorder rounded-2xl;
+            .glass-panel {
+                @apply bg-surface backdrop-blur-2xl border border-borderColors shadow-glass rounded-[2rem] overflow-hidden;
             }
-            .text-gradient {
-                @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-[#a78bfa] to-secondary animate-gradient-text;
-                background-size: 200% auto;
+            .glass-button {
+                @apply bg-white/[0.05] backdrop-blur-md border border-borderColors rounded-xl text-white hover:bg-white/[0.1] hover:border-white/20 transition-all shadow-sm;
+            }
+            .tech-header {
+                @apply font-mono text-[10px] tracking-[0.25em] font-bold uppercase text-accentPrimary;
             }
             .reveal {
-                @apply opacity-0 translate-y-8 transition-all duration-1000 ease-out;
+                @apply opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out;
             }
             .reveal.active {
                 @apply opacity-100 translate-y-0;
             }
+            .glow-text {
+                text-shadow: 0 0 12px rgba(14, 165, 233, 0.5);
+            }
         }
         
         body {
-            background-color: #0a0a0f;
-            color: #ffffff;
+            background-color: #080812;
+            color: #E2E8F0;
             overflow-x: hidden;
+            /* Space and Time subtle radial grid - Lighter Shade */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(203, 213, 225, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.06), transparent 25%),
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+            background-attachment: fixed;
         }
 
-        /* Hide scrollbar but keep functionality */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2a2a35;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #7c3aed;
-        }
-        
-        /* Input autofill default styles override */
-        input:-webkit-autofill,
-        textarea:-webkit-autofill {
-            -webkit-box-shadow: 0 0 0 30px #0a0a0f inset !important;
-            -webkit-text-fill-color: white !important;
-        }
+        .ambient-glow-1 { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(203, 213, 225, 0.1) 0%, rgba(8,8,18,0) 70%); top: -100px; right: -100px; z-index: -1; pointer-events: none; }
+        .ambient-glow-2 { position: absolute; width: 800px; height: 800px; background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, rgba(8,8,18,0) 70%); bottom: 20%; left: -200px; z-index: -1; pointer-events: none; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0, 240, 255, 0.5); }
     </style>
 </head>
-<body class="antialiased selection:bg-primary/30 selection:text-white flex flex-col min-h-screen">
+<body class="antialiased selection:bg-accentPrimary/30 selection:text-white flex flex-col min-h-screen relative">
+    
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
 
-    <!-- Custom Cursor Aura (Desktop Only) -->
-    <div id="custom-cursor" class="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] mix-blend-screen hidden md:block -translate-x-1/2 -translate-y-1/2">
-        <div class="absolute inset-0 bg-primary rounded-full opacity-50 blur-[10px] transform scale-100 transition-transform duration-300 ring-2 ring-white/20" id="cursor-glow"></div>
-        <div class="absolute inset-[10px] bg-white rounded-full shadow-[0_0_15px_#fff]"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
-        <div class="absolute inset-0 bg-darkBg/60 backdrop-blur-md border-b border-white/5 opacity-0 transition-opacity duration-300" id="nav-backdrop"></div>
-        <div class="container mx-auto px-6 py-5 flex items-center justify-between relative z-10">
-            <a href="index.html" class="text-xl font-display font-bold text-white tracking-widest hover:text-primary transition-colors magnetic">Meet Shah.</a>
+    <!-- Floating Navbar -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-4xl px-4 z-50">
+        <div class="glass-panel rounded-full px-6 py-3 flex items-center justify-between border-white/10 bg-surface/80 backdrop-blur-xl">
             
-            <!-- Desktop Links -->
-            <div class="hidden md:flex gap-10">
-                <a href="index.html" class="nav-link text-sm font-medium text-white/60 hover:text-white transition-colors relative group">
-                    Home
-                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full hidden"></span>
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-accentSecondary to-accentPrimary flex justify-center items-center group-hover:shadow-[0_0_15px_rgba(0,240,255,0.5)] transition-shadow">
+                    <div class="w-2.5 h-2.5 bg-darkBg rounded-full"></div>
+                </div>
+                <span class="font-sans font-bold tracking-tight text-white">Meet Shah</span>
+            </a>
+            
+            <!-- Links -->
+            <div class="hidden md:flex items-center gap-8 bg-black/20 rounded-full px-6 py-1.5 border border-white/5 shadow-inner">
+                <a href="index.html" class="nav-link font-sans text-xs font-semibold text-textMuted hover:text-white transition-colors relative">
+                    Overview
                 </a>
-                <a href="projects.html" class="nav-link text-sm font-medium text-white/60 hover:text-white transition-colors relative group">
+                <a href="projects.html" class="nav-link font-sans text-xs font-semibold text-textMuted hover:text-white transition-colors relative">
                     Projects
-                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full hidden"></span>
                 </a>
-                <a href="contact.html" class="nav-link text-sm font-medium text-white/60 hover:text-white transition-colors relative group">
-                    Contact
-                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full hidden"></span>
+                <a href="contact.html" class="nav-link font-sans text-xs font-semibold text-textMuted hover:text-white transition-colors relative">
+                    Network
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button class="md:hidden text-white/70 hover:text-white p-2" aria-label="Toggle Menu" id="mobile-menu-btn">
-                <i class="fas fa-bars text-xl"></i>
+            <!-- CTA/Status -->
+            <div class="hidden md:flex items-center gap-2">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accentPrimary opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accentPrimary"></span>
+                </span>
+                <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted">System Active</span>
+            </div>
+            
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-white/70 hover:text-white px-2">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
-    <main class="flex-grow">
-        <!-- HOME PAGE -->
-        <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 pb-24 overflow-hidden">
-            <!-- Animated Background Mesh -->
-            <div class="absolute top-[20%] left-[15%] w-[40vw] h-[40vw] max-w-lg max-h-lg bg-primary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob z-0 pointer-events-none"></div>
-            <div class="absolute top-[30%] right-[10%] w-[35vw] h-[35vw] max-w-md max-h-md bg-secondary/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob [animation-delay:2s] z-0 pointer-events-none"></div>
-            <div class="absolute bottom-[-10%] left-[40%] w-[40vw] h-[40vw] max-w-lg max-h-lg bg-[#06b6d4]/15 rounded-full mix-blend-screen filter blur-[100px] animate-blob [animation-delay:4s] z-0 pointer-events-none"></div>
-            
-            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-16 lg:gap-8 items-center relative z-10">
+    <main class="flex-grow pt-40 pb-24 relative z-10">
+        
+        <!-- Premium Dashboard Hero -->
+        <section class="container mx-auto px-4 max-w-6xl font-sans">
+            <div class="grid lg:grid-cols-12 gap-6 items-stretch">
                 
-                <!-- Hero Content -->
-                <div class="space-y-8 reveal mt-10 lg:mt-0">
-                    <h1 class="text-6xl sm:text-7xl lg:text-8xl font-display font-bold tracking-tight text-white leading-[1.1]">
-                        Hi, I'm <br/>
-                        <span class="text-gradient">Meet Shah</span>
-                    </h1>
-                    <p class="text-xl sm:text-2xl text-gray-400 font-light max-w-xl">
-                        Business Analysis graduate from Queen's University Belfast, helping businesses make better decisions through data, one dashboard at a time.
-                    </p>
-                    <div class="flex flex-wrap gap-5 pt-4">
-                        <a href="projects.html" class="magnetic group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-300 bg-primary rounded-full hover:bg-primary/90 focus:outline-none overflow-hidden hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.6)]">
-                            <span class="relative z-10 flex items-center gap-3">
-                                View Projects 
-                                <i class="fas fa-arrow-right group-hover:translate-x-1.5 transition-transform duration-300"></i>
-                            </span>
-                        </a>
-                        <a href="contact.html" class="magnetic group inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-300 border border-white/20 rounded-full hover:bg-white/5 hover:border-white/40 focus:outline-none glass-card hover:scale-105 active:scale-95">
-                            Contact Me
-                        </a>
+                <!-- Main Intro Widget -->
+                <div class="lg:col-span-8 glass-panel p-10 md:p-14 relative reveal flex flex-col justify-center overflow-hidden group">
+                    <!-- Subtle sweeping background gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-accentPrimary/5 via-transparent to-accentSecondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        <span class="tech-header block mb-6">MSc Business Analytics</span>
+                        <h1 class="text-4xl md:text-6xl font-semibold text-white tracking-tight leading-[1.1] mb-6">
+                            Scalable <br> <span class="bg-clip-text text-transparent bg-gradient-to-r from-white block pt-1 to-textMuted">Data Solutions.</span>
+                        </h1>
+                        <p class="text-lg text-textMuted max-w-xl font-light leading-relaxed mb-10">
+                            I'm Meet Shah. I help enterprises make better decisions through advanced data modeling, insightful visualization, and architectural data design.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <a href="projects.html" class="bg-accentPrimary text-darkBg font-semibold px-8 py-3.5 rounded-full hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:bg-white transition-all flex items-center gap-2 text-sm tracking-wide">
+                                Launch Apps <i class="fas fa-arrow-right/80 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                            <a href="contact.html" class="glass-button px-8 py-3.5 rounded-full text-sm font-semibold tracking-wide flex items-center gap-2">
+                                Query Network
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Hero Image -->
-                <div class="relative flex justify-center lg:justify-end reveal [transition-delay:200ms]">
-                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[400px] lg:h-[400px] group perspective-[1000px]">
-                        <!-- Radial Glow Behind -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-primary via-[#a78bfa] to-secondary rounded-full blur-[40px] opacity-40 group-hover:opacity-70 group-hover:blur-[60px] transition-all duration-700"></div>
+                <!-- Profile Identity Widget -->
+                <div class="lg:col-span-4 glass-panel p-2 relative reveal [transition-delay:100ms] flex flex-col group">
+                    <div class="relative h-64 md:h-auto md:flex-grow rounded-3xl overflow-hidden bg-black/50 border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=600&q=80" alt="Meet Shah" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent"></div>
                         
-                        <!-- Image Container with 3D hover effect setup -->
-                        <div class="absolute inset-2 rounded-full border border-white/10 relative z-10 flex items-center justify-center overflow-hidden bg-darkBg shadow-2xl transition-transform duration-700 ease-out group-hover:rotate-y-12 group-hover:-rotate-x-12 cursor-pointer magnetic-img">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80" alt="Profile Photo" class="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 transition-all duration-700 ease-out" />
+                        <!-- Overlay Details -->
+                        <div class="absolute bottom-6 left-6 font-mono">
+                            <div class="text-[10px] text-accentPrimary tracking-widest uppercase mb-1">Status 200 OK</div>
+                            <div class="text-white text-sm">Belfast / UK</div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Analytics/Metrics Widgets -->
+                <div class="lg:col-span-4 glass-panel p-8 reveal [transition-delay:200ms] flex justify-between flex-col">
+                    <span class="tech-header">EXPERIENCE</span>
+                    <div class="mt-4">
+                        <div class="text-5xl font-bold font-mono text-white mb-1 glow-text">5<span class="text-3xl text-textMuted glow-none">YRS</span></div>
+                        <p class="text-sm font-light text-textMuted">Operational background in HR,<br>transitioning to Data Logic.</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 glass-panel p-8 reveal [transition-delay:300ms]">
+                    <span class="tech-header mb-6 block">DEPLOYED STACK ARCHITECTURE</span>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                        
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-2xl hover:border-accentPrimary/50 transition-colors">
+                            <div class="w-8 h-8 rounded bg-accentPrimary/10 flex items-center justify-center text-accentPrimary mb-3">
+                                <i class="fab fa-python text-lg"></i>
+                            </div>
+                            <div class="text-sm font-semibold text-white">Python Core</div>
+                            <div class="text-[10px] font-mono text-textMuted mt-1 w-full truncate">PANDAS_N_SCIKIT</div>
+                        </div>
+
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-2xl hover:border-accentSecondary/50 transition-colors">
+                            <div class="w-8 h-8 rounded bg-accentSecondary/10 flex items-center justify-center text-accentSecondary mb-3">
+                                <i class="fas fa-chart-pie text-lg"></i>
+                            </div>
+                            <div class="text-sm font-semibold text-white">Power BI</div>
+                            <div class="text-[10px] font-mono text-textMuted mt-1 w-full truncate">VISUALIZATION</div>
+                        </div>
+
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-2xl hover:border-[#0ea5e9]/50 transition-colors">
+                            <div class="w-8 h-8 rounded bg-[#0ea5e9]/10 flex items-center justify-center text-[#0ea5e9] mb-3">
+                                <i class="fas fa-database text-lg"></i>
+                            </div>
+                            <div class="text-sm font-semibold text-white">SQL Engine</div>
+                            <div class="text-[10px] font-mono text-textMuted mt-1 w-full truncate">RELATIONAL_DB</div>
+                        </div>
+
+                        <div class="bg-black/30 border border-white/5 p-4 rounded-2xl hover:border-white/50 transition-colors">
+                            <div class="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-white mb-3">
+                                <i class="fas fa-project-diagram text-lg"></i>
+                            </div>
+                            <div class="text-sm font-semibold text-white">R Studio</div>
+                            <div class="text-[10px] font-mono text-textMuted mt-1 w-full truncate">STAT_COMPUTING</div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Journey Section -->
-        <section class="py-24 relative z-10" id="journey">
-            <div class="container mx-auto px-6 max-w-4xl">
+        <!-- Timeline Log (Reformatted as pristine datafeed logic) -->
+        <section class="container mx-auto px-4 max-w-4xl mt-32 relative font-sans">
+            
+            <div class="reveal text-center mb-16">
+                <span class="tech-header block mb-3">System Logic</span>
+                <h2 class="text-3xl font-semibold text-white">Commit History</h2>
+            </div>
+            
+            <div class="relative before:absolute before:inset-0 before:ml-5 md:before:ml-[50%] before:-translate-x-px before:h-full before:w-[2px] before:bg-gradient-to-b before:from-borderColors before:via-accentPrimary/20 before:to-transparent space-y-8">
                 
-                <div class="reveal text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">My Journey</h2>
-                    <div class="h-1 w-24 bg-primary/80 mx-auto rounded-full shadow-[0_0_10px_rgba(124,58,237,0.8)]"></div>
-                </div>
-                
-                <!-- Narrative -->
-                <div class="relative glass-card p-8 md:p-14 reveal [transition-delay:100ms] border-t border-t-white/20">
-                    <span class="absolute -top-12 -left-4 md:-left-8 text-9xl text-primary/30 font-serif leading-none select-none blur-[1px]">"</span>
-                    <div class="space-y-8 text-gray-300 text-lg md:text-xl font-light relative z-10 leading-relaxed">
-                        <p>With 5 years of experience in HR and Recruitment, my background in people and process gave me a unique lens on how businesses really operate.</p>
-                        <hr class="border-white/10 mx-auto w-1/3">
-                        <p>A love for data, spreadsheets, and visualisation turned that curiosity into a career pivot — and I haven't looked back since.</p>
-                    </div>
-                </div>
-
-                <!-- Timeline Skeleton -->
-                <div class="mt-32 reveal [transition-delay:200ms]">
-                    <div class="flex items-center justify-center gap-4 mb-16">
-                        <h3 class="text-2xl md:text-3xl font-display font-semibold text-white">Experience & Education</h3>
+                <!-- Node 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal">
+                    <!-- Connector pip -->
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkBg bg-accentPrimary absolute left-0 md:left-1/2 -ml-5 md:-ml-5 shadow-[0_0_15px_rgba(0,240,255,0.4)] group-hover:scale-110 transition-transform">
+                        <i class="fas fa-graduation-cap text-darkBg text-xs"></i>
                     </div>
                     
-                    <div class="relative border-l border-white/10 ml-4 md:ml-[50%] space-y-12 pb-8">
-                        
-                        <!-- Item 1: Queen's -->
-                        <div class="relative pl-10 md:pl-0 group">
-                            <!-- Dot -->
-                            <div class="absolute w-4 h-4 rounded-full bg-darkBg border-2 border-primary -left-[21px] md:-left-[9px] top-2 shadow-[0_0_15px_rgba(124,58,237,0.6)] group-hover:scale-125 transition-transform duration-300"></div>
-                            
-                            <!-- Desktop Left Content (Dates/Titles) -->
-                            <div class="hidden md:block absolute w-1/2 right-full pr-12 text-right top-0">
-                                <h4 class="text-xl font-bold text-white mb-1">Queen's University Belfast</h4>
-                                <span class="text-primary font-medium text-sm block mb-1">Postgraduate Student (MSc Business Analytics)</span>
-                                <span class="text-gray-500 text-sm">Sept 2024 - Present<br>Belfast, UK</span>
+                    <div class="w-full pl-16 md:pl-0 md:w-[calc(50%-2.5rem)]">
+                        <div class="glass-panel p-6 rounded-2xl hover:border-accentPrimary/40 transition-colors cursor-crosshair">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-white font-semibold flex items-center gap-2">
+                                    Queen's Univ Belfast
+                                </h4>
+                                <span class="text-gray-500 font-mono text-xs">PRESENT</span>
                             </div>
-                            
-                            <!-- Mobile Titles (Hidden on desktop) -->
-                            <div class="md:hidden mb-4">
-                                <h4 class="text-xl font-bold text-white mb-1">Queen's University Belfast</h4>
-                                <span class="text-primary font-medium text-sm block mb-1">MSc Business Analytics</span>
-                                <span class="text-gray-500 text-sm">Sept 2024 - Present</span>
-                            </div>
-                            
-                            <!-- Right Content (Description Card) -->
-                            <div class="md:pl-12 md:w-1/2">
-                                <div class="glass-card p-6 border border-white/5 hover:border-primary/30 transition-colors">
-                                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Completed MSc in Business Analytics (Russell Group). Dissertation focused on Identifying High Water Consumption Households Using Clustering and Anomaly Detection Techniques.</p>
-                                    <p class="text-gray-400 text-sm leading-relaxed"><strong>Projects:</strong> HR Attrition Analysis, Airline Review Analytics, Austin Housing Price Prediction, and Marketing Analysis using PCA.</p>
-                                </div>
-                            </div>
+                            <div class="text-accentPrimary text-sm font-medium mb-3">MSc Business Analytics</div>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">
+                                Dissertation focused on Identifying High Water Consumption Households Using Clustering and Anomaly Detection Techniques. Extensive work in HR Attrition Analysis.
+                            </p>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Item 2: techcarrot Sr BA -->
-                        <div class="relative pl-10 md:pl-0 group">
-                            <!-- Dot -->
-                            <div class="absolute w-4 h-4 rounded-full bg-darkBg border-2 border-[#06b6d4] -left-[21px] md:-left-[9px] top-2 shadow-[0_0_15px_rgba(6,182,212,0.6)] group-hover:scale-125 transition-transform duration-300"></div>
-                            
-                            <!-- Desktop Left Content (Dates/Titles) -->
-                            <div class="hidden md:block absolute w-1/2 right-full pr-12 text-right top-0">
-                                <h4 class="text-xl font-bold text-white mb-1">techcarrot</h4>
-                                <span class="text-[#06b6d4] font-medium text-sm block mb-1">Senior Business Analyst - HR Operations</span>
-                                <span class="text-gray-500 text-sm">April 2023 - April 2024<br>Dubai, UAE</span>
+                <!-- Node 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal [transition-delay:100ms]">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkBg bg-surface border border-white/20 absolute left-0 md:left-1/2 -ml-5 md:-ml-5 z-10 group-hover:border-white/50 transition-colors">
+                        <i class="fas fa-briefcase text-white/50 text-xs"></i>
+                    </div>
+                    <div class="w-full pl-16 md:pl-0 md:w-[calc(50%-2.5rem)]">
+                        <div class="glass-panel p-6 rounded-2xl hover:border-white/20 transition-colors cursor-crosshair">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-white font-semibold">techcarrot (Dubai)</h4>
+                                <span class="text-gray-500 font-mono text-xs">2024</span>
                             </div>
-                            
-                            <!-- Mobile Titles (Hidden on desktop) -->
-                            <div class="md:hidden mb-4">
-                                <h4 class="text-xl font-bold text-white mb-1">techcarrot</h4>
-                                <span class="text-[#06b6d4] font-medium text-sm block mb-1">Senior Business Analyst</span>
-                                <span class="text-gray-500 text-sm">April 2023 - April 2024</span>
-                            </div>
-                            
-                            <!-- Right Content (Description Card) -->
-                            <div class="md:pl-12 md:w-1/2">
-                                <div class="glass-card p-6 border border-white/5 hover:border-[#06b6d4]/30 transition-colors">
-                                    <p class="text-gray-400 text-sm leading-relaxed">Built and validated business requirements through stakeholder workshops, identifying opportunities that reduced onboarding time by 20%. Designed 'as-is' and 'to-be' process maps, accelerating decision cycles by 40%. Developed wireframes and Power BI dashboards to visualize recruitment funnels and KPIs.</p>
-                                </div>
-                            </div>
+                            <div class="text-white/60 text-sm font-medium mb-3">Senior Business Analyst - HR</div>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">
+                                Built and validated logic via stakeholder workshops. Designed process maps accelerating decisions by 40%. Scaled Power BI pipelines for leadership visibility.
+                            </p>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Item 3: techcarrot BA -->
-                        <div class="relative pl-10 md:pl-0 group">
-                            <!-- Dot -->
-                            <div class="absolute w-4 h-4 rounded-full bg-darkBg border-2 border-secondary -left-[21px] md:-left-[9px] top-2 shadow-[0_0_15px_rgba(245,158,11,0.6)] group-hover:scale-125 transition-transform duration-300"></div>
-                            
-                            <!-- Desktop Left Content (Dates/Titles) -->
-                            <div class="hidden md:block absolute w-1/2 right-full pr-12 text-right top-0">
-                                <h4 class="text-xl font-bold text-white mb-1">techcarrot</h4>
-                                <span class="text-secondary font-medium text-sm block mb-1">Business Analyst - HR Operations</span>
-                                <span class="text-gray-500 text-sm">Nov 2021 - March 2023<br>Dubai, UAE</span>
+                <!-- Node 3 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal [transition-delay:200ms]">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkBg bg-surface border border-white/20 absolute left-0 md:left-1/2 -ml-5 md:-ml-5 z-10 group-hover:border-white/50 transition-colors">
+                        <i class="fas fa-user-tie text-white/50 text-xs"></i>
+                    </div>
+                    <div class="w-full pl-16 md:pl-0 md:w-[calc(50%-2.5rem)]">
+                        <div class="glass-panel p-6 rounded-2xl hover:border-white/20 transition-colors cursor-crosshair">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-white font-semibold">techcarrot (Dubai)</h4>
+                                <span class="text-gray-500 font-mono text-xs">2023</span>
                             </div>
-                            
-                            <!-- Mobile Titles (Hidden on desktop) -->
-                            <div class="md:hidden mb-4">
-                                <h4 class="text-xl font-bold text-white mb-1">techcarrot</h4>
-                                <span class="text-secondary font-medium text-sm block mb-1">Business Analyst</span>
-                                <span class="text-gray-500 text-sm">Nov 2021 - March 2023</span>
-                            </div>
-                            
-                            <!-- Right Content (Description Card) -->
-                            <div class="md:pl-12 md:w-1/2">
-                                <div class="glass-card p-6 border border-white/5 hover:border-secondary/30 transition-colors">
-                                    <p class="text-gray-400 text-sm leading-relaxed">Elicited requirements via stakeholder interviews to document workflows and inefficiencies. Produced current-state process maps and requirements specifications, driving initiatives that reduced hiring cycle time by 25% and improved candidate conversion by 18%.</p>
-                                </div>
-                            </div>
+                            <div class="text-white/60 text-sm font-medium mb-3">Business Analyst - HR</div>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">
+                                Developed core requirements and reduced hiring cycle time by 25% through rigorous workflow documentation and operational process improvement.
+                            </p>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Item 4: Ivory Tower -->
-                        <div class="relative pl-10 md:pl-0 group">
-                            <!-- Dot -->
-                            <div class="absolute w-4 h-4 rounded-full bg-darkBg border-2 border-primary -left-[21px] md:-left-[9px] top-2 shadow-[0_0_15px_rgba(124,58,237,0.6)] group-hover:scale-125 transition-transform duration-300"></div>
-                            
-                            <!-- Desktop Left Content (Dates/Titles) -->
-                            <div class="hidden md:block absolute w-1/2 right-full pr-12 text-right top-0">
-                                <h4 class="text-xl font-bold text-white mb-1">Ivory Tower Consultants</h4>
-                                <span class="text-primary font-medium text-sm block mb-1">Consultant</span>
-                                <span class="text-gray-500 text-sm">Oct 2018 - Oct 2021<br>Goregaon, India</span>
+                <!-- Node 4 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal [transition-delay:300ms]">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkBg bg-surface border border-white/20 absolute left-0 md:left-1/2 -ml-5 md:-ml-5 z-10 group-hover:border-accentSecondary/50 transition-colors">
+                        <i class="fas fa-building text-white/50 text-xs"></i>
+                    </div>
+                    <div class="w-full pl-16 md:pl-0 md:w-[calc(50%-2.5rem)]">
+                        <div class="glass-panel p-6 rounded-2xl hover:border-accentSecondary/30 transition-colors cursor-crosshair">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-white font-semibold">Ivory Tower Consultants</h4>
+                                <span class="text-gray-500 font-mono text-xs">2021</span>
                             </div>
-                            
-                            <!-- Mobile Titles (Hidden on desktop) -->
-                            <div class="md:hidden mb-4">
-                                <h4 class="text-xl font-bold text-white mb-1">Ivory Tower Consultants</h4>
-                                <span class="text-primary font-medium text-sm block mb-1">Consultant</span>
-                                <span class="text-gray-500 text-sm">Oct 2018 - Oct 2021</span>
-                            </div>
-                            
-                            <!-- Right Content (Description Card) -->
-                            <div class="md:pl-12 md:w-1/2">
-                                <div class="glass-card p-6 border border-white/5 hover:border-primary/30 transition-colors">
-                                    <p class="text-gray-400 text-sm leading-relaxed">Managed a diverse portfolio of 10 clients valued at INR 30 Crores. Drove the development of robust sourcing and networking capabilities, achieving a 70% joining ratio for high-profile clients like NIUM. Staffed critical technical roles across DevOps, React, and Node.js.</p>
-                                </div>
-                            </div>
+                            <div class="text-accentSecondary text-sm font-medium mb-3">Consultant</div>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">
+                                Managed INR 30Cr portfolio. Achieved 70% joining ratios for technical placements (DevOps, Node.js) across key fintech clients.
+                            </p>
                         </div>
-
-                        <!-- Item 5: Undergrad -->
-                        <div class="relative pl-10 md:pl-0 group">
-                            <!-- Dot -->
-                            <div class="absolute w-4 h-4 rounded-full bg-darkBg border-2 border-white/40 -left-[21px] md:-left-[9px] top-2 shadow-[0_0_15px_rgba(255,255,255,0.2)] group-hover:scale-125 transition-transform duration-300"></div>
-                            
-                            <!-- Desktop Left Content (Dates/Titles) -->
-                            <div class="hidden md:block absolute w-1/2 right-full pr-12 text-right top-0">
-                                <h4 class="text-xl font-bold text-white mb-1">Thakur College of Science & Commerce</h4>
-                                <span class="text-gray-400 font-medium text-sm block mb-1">Bachelor of Management Studies</span>
-                                <span class="text-gray-500 text-sm">June 2017 - Oct 2020</span>
-                            </div>
-                            
-                            <!-- Mobile Titles (Hidden on desktop) -->
-                            <div class="md:hidden mb-4">
-                                <h4 class="text-xl font-bold text-white mb-1">Thakur College</h4>
-                                <span class="text-gray-400 font-medium text-sm block mb-1">BMS Finance</span>
-                                <span class="text-gray-500 text-sm">June 2017 - Oct 2020</span>
-                            </div>
-                            
-                            <!-- Right Content (Description Card) -->
-                            <div class="md:pl-12 md:w-1/2">
-                                <div class="glass-card p-6 border border-white/5 hover:border-white/20 transition-colors">
-                                    <p class="text-gray-400 text-sm leading-relaxed">Specialized in Finance and General Management, laying the foundational business acumen that paved the way for a career in analytics and operations.</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
             </div>
         </section>
+
     </main>
 
-    <!-- Footer subtle text -->
-    <footer class="w-full text-center text-gray-600 text-sm font-medium tracking-widest uppercase pb-6 pt-10 mt-auto bg-black border-t border-white/5">
-        © <span id="year"></span> Meet Shah. All Rights Reserved.
+    <!-- Base Footer -->
+    <footer class="w-full border-t border-borderColors bg-black/40 py-8 relative z-10 font-mono">
+        <div class="container mx-auto px-6 text-center flex flex-col items-center gap-2">
+            <span class="text-xs text-textMuted tracking-widest uppercase">
+                <i class="fas fa-server mr-2"></i> SYSTEM_EOF // © <span id="year"></span> MEET SHAH.
+            </span>
+            <span class="text-[9px] text-gray-600">INFRASTRUCTURE ESTABLISHED ON 127.0.0.1</span>
+        </div>
     </footer>
 
-    <!-- JavaScript Interactive Logic -->
+    <!-- JS Logic -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            
-            // Set current year
             document.getElementById('year').textContent = new Date().getFullYear();
 
-            // Mobile Menu Toggle
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const navLinks = document.querySelector('.md\\:flex');
-            
-            // Sticky glassy nav behavior
-            const navBackdrop = document.getElementById('nav-backdrop');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navBackdrop.classList.remove('opacity-0');
-                    navBackdrop.classList.add('opacity-100');
-                } else {
-                    navBackdrop.classList.add('opacity-0');
-                    navBackdrop.classList.remove('opacity-100');
-                }
-            });
-
-            // Smooth Scroll Reveal with Intersection Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
+            // Smooth Scroll Reveal
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
                     }
                 });
-            }, observerOptions);
-
+            }, { threshold: 0.1 });
+            
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // Custom Cursor Aura
-            const cursor = document.getElementById("custom-cursor");
-            const cursorGlow = document.getElementById("cursor-glow");
-            
-            if (cursor && window.matchMedia("(min-width: 768px)").matches) {
-                let mouseX = window.innerWidth / 2;
-                let mouseY = window.innerHeight / 2;
-                let cursorX = mouseX;
-                let cursorY = mouseY;
-                
-                // Track mouse
-                document.addEventListener("mousemove", (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                });
-
-                // Smooth follow animation loop
-                function animateCursor() {
-                    let ease = 0.15;
-                    cursorX += (mouseX - cursorX) * ease;
-                    cursorY += (mouseY - cursorY) * ease;
-                    
-                    cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-                    requestAnimationFrame(animateCursor);
-                }
-                animateCursor();
-
-                // Interactive elements expand cursor glow
-                const interactables = document.querySelectorAll('a, button, input, textarea, .accordion-header, .magnetic-img');
-                interactables.forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        cursorGlow.classList.replace('scale-100', 'scale-150');
-                        cursorGlow.classList.replace('opacity-50', 'opacity-80');
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        cursorGlow.classList.replace('scale-150', 'scale-100');
-                        cursorGlow.classList.replace('opacity-80', 'opacity-50');
-                    });
-                });
-            }
-
-            // Magnetic Button Effect
-            const magneticElements = document.querySelectorAll('.magnetic');
-            magneticElements.forEach((elem) => {
-                elem.addEventListener('mousemove', (e) => {
-                    const rect = elem.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    // Limit translation
-                    elem.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-                });
-                
-                elem.addEventListener('mouseleave', () => {
-                    elem.style.transform = ''; // reset to class defaults
-                });
-            });
-            
-            // Accordion Logic
-            const accordions = document.querySelectorAll('.accordion-header');
-            accordions.forEach(acc => {
-                acc.addEventListener('click', () => {
-                    const content = acc.nextElementSibling;
-                    const icon = acc.querySelector('.accordion-icon');
-                    
-                    if(content.style.maxHeight) {
-                        content.style.maxHeight = null;
-                        icon.classList.remove('rotate-180');
-                        acc.classList.remove('bg-white/[0.03]');
-                    } else {
-                        accordions.forEach(other => {
-                            if(other !== acc) {
-                                other.nextElementSibling.style.maxHeight = null;
-                                other.querySelector('.accordion-icon').classList.remove('rotate-180');
-                                other.classList.remove('bg-white/[0.03]');
-                            }
-                        });
-                        
-                        content.style.maxHeight = content.scrollHeight + "px";
-                        icon.classList.add('rotate-180');
-                        acc.classList.add('bg-white/[0.03]');
-                    }
-                });
-            });
-            
-            // Active Link Highlighting in Nav (Updated for Multi-page)
+            // Active Nav link highlight
             const navItems = document.querySelectorAll('.nav-link');
             const currentPath = window.location.pathname;
             
             navItems.forEach(item => {
-                item.classList.remove('text-white');
-                item.classList.add('text-white/60');
-                const indicator = item.querySelector('span');
-                if(indicator) indicator.classList.remove('w-full', 'block');
-                if(indicator) indicator.classList.add('w-0', 'hidden');
-                
                 const href = item.getAttribute('href');
                 if (currentPath.endsWith(href) || (currentPath.endsWith('/') && href === 'index.html')) {
-                    item.classList.add('text-white');
-                    item.classList.remove('text-white/60');
-                    if(indicator) {
-                        indicator.classList.remove('w-0', 'hidden');
-                        indicator.classList.add('w-full', 'block');
-                    }
+                    item.classList.add('text-white', 'bg-white/10', 'px-3', 'py-1', 'rounded-full');
+                    item.classList.remove('text-textMuted');
                 }
             });
-
         });
     </script>
 </body>
