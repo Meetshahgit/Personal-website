@@ -1,683 +1,470 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Shah - Platform Apps</title>
-    <meta name="description" content="Personal portfolio of Meet Shah, showcasing Business Analytics projects and skills.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projects | Meet Shah</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        darkBg: '#080812',          
-                        surface: 'rgba(30, 30, 46, 0.4)',   
-                        surfaceHover: 'rgba(40, 40, 60, 0.6)', 
-                        borderColors: 'rgba(255, 255, 255, 0.08)',
-                        accentPrimary: '#0ea5e9',   // Sky Blue
-                        accentSecondary: '#cbd5e1', // Light Slate
-                        textMuted: '#94A3B8',       
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    boxShadow: {
-                        'neon': '0 0 15px rgba(14, 165, 233, 0.3)',
-                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .glass-panel {
-                @apply bg-surface backdrop-blur-2xl border border-borderColors shadow-glass rounded-[2rem] overflow-hidden;
-            }
-            .tech-header {
-                @apply font-mono text-[10px] tracking-[0.25em] font-bold uppercase text-accentPrimary;
-            }
-            .reveal {
-                @apply opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out;
-            }
-            .reveal.active {
-                @apply opacity-100 translate-y-0;
-            }
-        }
-        
-        body {
-            background-color: #080812;
-            color: #E2E8F0;
-            overflow-x: hidden;
-            /* Space and Time subtle radial grid - Lighter Shade */
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(203, 213, 225, 0.05), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.06), transparent 25%),
-                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
-            background-attachment: fixed;
-        }
+    <!-- SEO (#14) -->
+    <meta name="description" content="Projects portfolio of Meet Shah, Data Analyst. MSc Business Analytics work from Queen's University Belfast including NI Water dissertation, DataThon 2025 win, plus guided and independent data projects.">
 
-        .ambient-glow-1 { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(203, 213, 225, 0.1) 0%, rgba(8,8,18,0) 70%); top: -100px; right: -100px; z-index: -1; pointer-events: none; }
-        .ambient-glow-2 { position: absolute; width: 800px; height: 800px; background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, rgba(8,8,18,0) 70%); bottom: 20%; left: -200px; z-index: -1; pointer-events: none; }
+    <!-- Open Graph (#15) -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://www.meetdata.co.uk/projects">
+    <meta property="og:title"       content="Projects | Meet Shah">
+    <meta property="og:description" content="Academic and independent data projects by Meet Shah. MSc Business Analytics, Queen's University Belfast. SQL, Python, Power BI, R.">
+    <meta name="twitter:card"       content="summary">
+    <meta name="twitter:title"      content="Projects | Meet Shah">
+    <meta name="twitter:description" content="Data projects by Meet Shah: NI Water dissertation, DataThon 2025 win, ATM analytics, and more.">
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(0, 240, 255, 0.5); }
-    </style>
+    <!-- Favicon (#16) -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="antialiased selection:bg-accentPrimary/30 selection:text-white flex flex-col min-h-screen relative">
-    
-    <div class="ambient-glow-1"></div>
-    <div class="ambient-glow-2"></div>
+<body>
 
-    <!-- Floating Navbar -->
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-4xl px-4 z-50">
-        <div class="glass-panel rounded-full px-6 py-3 flex items-center justify-between border-white/10 bg-surface/80 backdrop-blur-xl">
-            <!-- Logo -->
-            <a href="index.html" class="flex items-center gap-2 group">
-                <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-accentSecondary to-accentPrimary flex justify-center items-center group-hover:shadow-[0_0_15px_rgba(0,240,255,0.5)] transition-shadow">
-                    <div class="w-2.5 h-2.5 bg-darkBg rounded-full"></div>
-                </div>
-                <span class="font-sans font-bold tracking-tight text-white">Meet Shah</span>
-            </a>
-            
-            <!-- Links -->
-            <div class="hidden md:flex items-center gap-8 bg-black/20 rounded-full px-6 py-1.5 border border-white/5 shadow-inner">
-                <a href="index.html" class="nav-link font-sans text-xs font-semibold text-textMuted hover:text-white transition-colors relative">
-                    Overview
-                </a>
-                <a href="projects.html" class="nav-link font-sans text-xs font-semibold text-textMuted hover:text-white transition-colors relative">
-                    Projects
-                </a>
-                <a href="contact.html" class="nav-link font-sans text-xs font-semibold text-textMuted hover:text-white transition-colors relative">
-                    Network
-                </a>
-            </div>
+    <!-- Skip nav (#17) -->
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
 
-            <!-- CTA/Status -->
-            <div class="hidden md:flex items-center gap-2">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accentPrimary opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accentPrimary"></span>
-                </span>
-                <span class="font-mono text-[9px] uppercase tracking-widest text-textMuted">System Active</span>
-            </div>
-            
-            <!-- Mobile Toggle -->
-            <button class="md:hidden text-white/70 hover:text-white px-2">
-                <i class="fas fa-bars"></i>
-            </button>
+    <!-- Nav -->
+    <nav>
+        <a href="index.html" class="nav-brand">Meet Shah</a>
+        <div class="nav-links">
+            <a href="index.html">Overview</a>
+            <a href="projects.html" class="active">Projects</a>
+        </div>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            Available
         </div>
     </nav>
 
-    <main class="flex-grow pt-40 pb-24 relative z-10">
-        
-        <section class="container mx-auto px-4 max-w-6xl font-sans">
-            
-            <div class="reveal mb-12">
-                <span class="tech-header block mb-4">DEPLOYED APPLICATIONS</span>
-                <h2 class="text-4xl text-white font-semibold">Academic Workspaces</h2>
-                <p class="text-textMuted text-lg mt-4 max-w-2xl font-light">Deep dives into data behavior. Organized by semester containers, each module houses relevant logic, raw datasets, and executive slide decks.</p>
+    <main id="main-content">
+
+        <p class="projects-intro">
+            Academic work from Queen's University Belfast, organised by semester, accessible via Dropbox.
+            Personal projects are hosted on GitHub.
+        </p>
+
+        <!-- ══════════════════════════════
+             MAJOR SECTION: ACADEMIC
+             ══════════════════════════════ -->
+        <div class="major-section">
+            <div class="major-section-header">
+                <h2 class="major-section-title">Academic</h2>
+                <span class="major-section-pill academic">MSc Business Analytics</span>
             </div>
 
-            <!-- Academic Projects Accordion / Panels -->
-            <div class="mb-24 reveal">
-                <div class="grid gap-6">
-                    
-                    <!-- Accordion Item 1: Semester 1 (Glass style) -->
-                    <div class="glass-panel group">
-                        <!-- Header -->
-                        <details class="group/details" open>
-                            <summary class="h-20 flex items-center justify-between px-8 cursor-pointer bg-black/10 hover:bg-black/20 transition-colors list-none outline-none">
-                                <div class="flex items-center gap-6 font-sans">
-                                    <div class="w-10 h-10 rounded-full bg-accentPrimary/10 border border-accentPrimary/30 flex items-center justify-center">
-                                        <i class="fas fa-folder-open text-accentPrimary"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-white font-semibold block text-lg mb-1">Semester 1</span>
-                                        <div class="flex items-center gap-3 font-mono text-[10px] text-textMuted">
-                                            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded">AUTUMN_2024</span>
-                                            <span class="bg-accentPrimary/5 border border-accentPrimary/20 text-accentPrimary px-2 py-0.5 rounded shadow-[0_0_8px_rgba(0,240,255,0.2)]">8 FILES ALLOCATED</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 rounded-full border border-borderColors flex justify-center items-center group-open/details:rotate-180 transition-transform">
-                                    <i class="fas fa-chevron-down text-textMuted text-xs"></i>
-                                </div>
-                            </summary>
-                            
-                            <!-- Content Box -->
-                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6 bg-black/20 border-t border-borderColors">
-                                
-                                <!-- Data Card: AI in Business -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all hover:bg-white/[0.04]">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h4 class="text-white font-semibold text-lg">AI in Business</h4>
-                                            <span class="text-xs text-textMuted font-mono">MODULE_01</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="text-gray-400 font-light text-sm mb-6 h-16">
-                                        A concise analysis of AI implementation and its transformative outcomes within enterprise business environments.
-                                    </p>
-                                    
-                                    <!-- Pills -->
-                                    <div class="space-y-3 font-mono text-[10px]">
-                                        <a href="./Business analysis Assignments/Sem 1/Assignment 1/Ai in Business/OWL7209 Assignment Brief 1.pdf" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-white/20 text-gray-300 transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-white/10 text-white font-bold">RPT</span> 
-                                                PROBLEM_STATMENT.PDF
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity text-white"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 1/Assignment 1/Ai in Business/CarRentalData.csv" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-accentSecondary/50 text-gray-300 hover:text-accentSecondary transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-accentSecondary/20 text-accentSecondary font-bold border border-accentSecondary/30">CSV</span> 
-                                                CAR_RENTAL_DATA.CSV
-                                            </div>
-                                            <i class="fas fa-download opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 1/Assignment 1/Ai in Business/Meet Shah - AI in Business.mp4" class="flex items-center justify-between p-3 rounded-lg bg-accentPrimary/10 border border-accentPrimary/30 text-accentPrimary hover:bg-accentPrimary/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.2)] transition-all group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-accentPrimary text-darkBg font-bold">MP4</span> 
-                                                VIDEO_PRESENTATION.MP4
-                                            </div>
-                                            <i class="fas fa-play opacity-70"></i>
-                                        </a>
-                                    </div>
-                                </div>
+            <!-- DISSERTATION -->
+            <div class="project-group">
+                <div class="group-header">
+                    <span class="group-title">Dissertation / Summer 2025</span>
+                    <span class="group-meta">FINAL_MODULE</span>
+                    <a href="https://www.dropbox.com/scl/fo/216pox0lxjqgb2nlwy4y8/AL0FyGlXykjOJjWEDgZnYmE?rlkey=ix1hrcp8fdupa42ujdw7skkaz&st=akpzz992&dl=0"
+                       class="group-dropbox-link"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Open Dissertation folder in Dropbox">[ Dropbox ↗ ]</a>
+                </div>
 
-                                <!-- Data Card: HR Analytics -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentSecondary/40 transition-all hover:bg-white/[0.04]">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h4 class="text-white font-semibold text-lg">HR Analytics</h4>
-                                            <span class="text-xs text-textMuted font-mono">MODULE_02</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="text-gray-400 font-light text-sm mb-6 h-16">
-                                        Storytelling and Data Visualisation of HR attrition, extracting complex workforce metrics into actionable board-level insights.
-                                    </p>
-                                    
-                                    <!-- Pills -->
-                                    <div class="space-y-3 font-mono text-[10px]">
-                                        <a href="./Business analysis Assignments/Sem 1/Assignment 1/HR analytics/Story board idea for HR analysis project.docx" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-white/20 text-gray-300 transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-white/10 text-white font-bold">DOC</span> 
-                                                STORYBOARD.DOCX
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity text-white"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 1/Assignment 1/HR analytics/Data Visualisation and Storytelling - Assignment1.twb" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-[#0ea5e9]/50 text-gray-300 hover:text-[#0ea5e9] transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-[#0ea5e9]/20 text-[#0ea5e9] font-bold border border-[#0ea5e9]/30">TWB</span> 
-                                                TABLEAU_DASHBOARD.TWB
-                                            </div>
-                                            <i class="fas fa-chart-pie opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 1/Assignment 1/HR analytics/Data Visualisation and Storytelling - Assignment1.pptx" class="flex items-center justify-between p-3 rounded-lg bg-accentSecondary/10 border border-accentSecondary/30 text-accentSecondary hover:bg-accentSecondary/20 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] transition-all group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-accentSecondary text-white font-bold">PPT</span> 
-                                                SLIDE_DECK.PPTX
-                                            </div>
-                                            <i class="fas fa-download opacity-70"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">NI Water: Privacy-Preserving Water Usage Analytics</span>
+                        <span class="project-badge">FINAL_REPORT</span>
                     </div>
-
-                    <!-- Accordion Item 2: Semester 2 -->
-                    <div class="glass-panel group">
-                        <details class="group/details">
-                            <summary class="h-20 flex items-center justify-between px-8 cursor-pointer bg-black/10 hover:bg-black/20 transition-colors list-none outline-none">
-                                <div class="flex items-center gap-6 font-sans">
-                                    <div class="w-10 h-10 rounded-full bg-accentSecondary/10 border border-accentSecondary/30 flex items-center justify-center">
-                                        <i class="fas fa-folder text-accentSecondary"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-white font-semibold block text-lg mb-1">Semester 2</span>
-                                        <div class="flex items-center gap-3 font-mono text-[10px] text-textMuted">
-                                            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded">SPRING_2025</span>
-                                            <span class="bg-accentSecondary/5 border border-accentSecondary/20 text-accentSecondary px-2 py-0.5 rounded">AWAITING_INGESTION</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 rounded-full border border-borderColors flex justify-center items-center group-open/details:rotate-180 transition-transform">
-                                    <i class="fas fa-chevron-down text-textMuted text-xs"></i>
-                                </div>
-                            </summary>
-                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6 bg-black/20 border-t border-borderColors">
-                                
-                                <!-- Data Card: Advanced Machine Learning -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all hover:bg-white/[0.04]">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h4 class="text-white font-semibold text-lg">Advanced ML</h4>
-                                            <span class="text-xs text-textMuted font-mono">AML_01</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-400 font-light text-sm mb-6 h-12">
-                                        Exploration and implementation of advanced machine learning protocols.
-                                    </p>
-                                    <div class="space-y-3 font-mono text-[10px]">
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-white/20 text-gray-300 transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-white/10 text-white font-bold">DIR</span> 
-                                                ASSIGNMENT_01
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity text-white"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 2" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-accentSecondary/50 text-gray-300 hover:text-accentSecondary transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-accentSecondary/20 text-accentSecondary font-bold border border-accentSecondary/30">DIR</span> 
-                                                ASSIGNMENT_02
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Data Card: Marketing Analytics -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentSecondary/40 transition-all hover:bg-white/[0.04]">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h4 class="text-white font-semibold text-lg">Marketing Analytics</h4>
-                                            <span class="text-xs text-textMuted font-mono">MKTG_01</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-400 font-light text-sm mb-6 h-12">
-                                        Customer RFM analysis, clustering, and ANOVA testing for targeted campaigns.
-                                    </p>
-                                    <div class="space-y-3 font-mono text-[10px]">
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1/marketing analysis/Marketing Analysis - Assignment1.pdf" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-white/20 text-gray-300 transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-white/10 text-white font-bold">PDF</span> 
-                                                MARKETING_REPORT.PDF
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity text-white"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1/marketing analysis/clean data - visual.twb" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-[#0ea5e9]/50 text-gray-300 hover:text-[#0ea5e9] transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-[#0ea5e9]/20 text-[#0ea5e9] font-bold border border-[#0ea5e9]/30">TWB</span> 
-                                                TABLEAU_WORKBOOK.TWB
-                                            </div>
-                                            <i class="fas fa-chart-pie opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1/marketing analysis/customer_rfm_analysis.csv" class="flex items-center justify-between p-3 rounded-lg bg-accentSecondary/10 border border-accentSecondary/30 text-accentSecondary hover:bg-accentSecondary/20 hover:shadow-[0_0_15px_rgba(203,213,225,0.2)] transition-all group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-accentSecondary/20 text-accentSecondary font-bold border border-accentSecondary/30">CSV</span> 
-                                                RFM_ANALYSIS.CSV
-                                            </div>
-                                            <i class="fas fa-download opacity-70"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Data Card: Data Mining -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all hover:bg-white/[0.04]">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h4 class="text-white font-semibold text-lg">Data Mining</h4>
-                                            <span class="text-xs text-textMuted font-mono">DMIN_01</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-400 font-light text-sm mb-6 h-12">
-                                        Airline review analysis utilizing IPython notebook models for sentiment logic.
-                                    </p>
-                                    <div class="space-y-3 font-mono text-[10px]">
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1/Data Mining/Data Mining - Assignment 1.docx" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-white/20 text-gray-300 transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-white/10 text-white font-bold">DOC</span> 
-                                                DATA_MINING.DOCX
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity text-white"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1/Data Mining/Airline_review_assignment_data.csv" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-accentPrimary/50 text-gray-300 hover:text-accentPrimary transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-accentPrimary/20 text-accentPrimary font-bold border border-accentPrimary/30">CSV</span> 
-                                                AIRLINE_REVIEWS.CSV
-                                            </div>
-                                            <i class="fas fa-download opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <!-- Data Card: Data Driven Decision Management -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-[#0ea5e9]/40 transition-all hover:bg-white/[0.04]">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h4 class="text-white font-semibold text-lg">D3M Optimization</h4>
-                                            <span class="text-xs text-textMuted font-mono">D3M_01</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-400 font-light text-sm mb-6 h-12">
-                                        Integer linear programming via MILP models for Laptop Manufacturing optimization.
-                                    </p>
-                                    <div class="space-y-3 font-mono text-[10px]">
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1/Data driven decision managment/Assignmnet 1.docx" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-white/20 text-gray-300 transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-white/10 text-white font-bold">DOC</span> 
-                                                D3M_ASSIGNMENT.DOCX
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity text-white"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Sem 2/Assignment 1/Data driven decision managment/Laptop_Manufacturing_MILP_Model_v3.pdf" class="flex items-center justify-between p-3 rounded-lg bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 text-[#0ea5e9] hover:bg-[#0ea5e9]/20 hover:shadow-[0_0_15px_rgba(14,165,233,0.2)] transition-all group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-[#0ea5e9] text-white font-bold">PDF</span> 
-                                                MILP_MODEL.PDF
-                                            </div>
-                                            <i class="fas fa-download opacity-70"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                    <p class="project-tech">Python &middot; K-Means Clustering &middot; Anomaly Detection &middot; GDPR Framework Design</p>
+                    <p class="project-desc">
+                        Analysed 450,000+ operational records for Northern Ireland Water to detect anomalous usage
+                        patterns across water infrastructure. Applied K-Means clustering and anomaly detection techniques,
+                        improving outlier identification accuracy by 15%.
+                    </p>
+                    <p class="project-desc">
+                        Designed a GDPR-compliant data governance framework from scratch, adopted by NI Water as
+                        their live compliance process.
+                    </p>
+                    <div class="project-files">
+                        <span class="file-tag">PDF RESEARCH_REPORT.PDF</span>
+                        <span class="file-tag">PPT OVERVIEW_DECK.PPTX</span>
                     </div>
-
-                    <!-- Accordion Item 3: Dissertation -->
-                    <div class="glass-panel group">
-                        <details class="group/details">
-                            <summary class="h-20 flex items-center justify-between px-8 cursor-pointer bg-black/10 hover:bg-black/20 transition-colors list-none outline-none">
-                                <div class="flex items-center gap-6 font-sans">
-                                    <div class="w-10 h-10 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 flex items-center justify-center">
-                                        <i class="fas fa-book text-[#0ea5e9]"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-white font-semibold block text-lg mb-1">Dissertation</span>
-                                        <div class="flex items-center gap-3 font-mono text-[10px] text-textMuted">
-                                            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded">SUMMER_2025</span>
-                                            <span class="bg-[#0ea5e9]/5 border border-[#0ea5e9]/20 text-[#0ea5e9] px-2 py-0.5 rounded">FINAL_MODULE</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 rounded-full border border-borderColors flex justify-center items-center group-open/details:rotate-180 transition-transform">
-                                    <i class="fas fa-chevron-down text-textMuted text-xs"></i>
-                                </div>
-                            </summary>
-                            <!-- Content Box -->
-                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6 bg-black/20 border-t border-borderColors">
-                                
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-[#0ea5e9]/40 transition-all hover:bg-white/[0.04]">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h4 class="text-white font-semibold text-lg">NI Water Dissertation</h4>
-                                            <span class="text-xs text-textMuted font-mono">FINAL_REPORT</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-400 font-light text-sm mb-6 h-12">
-                                        Comprehensive analytical deep-dive into Northern Ireland (NI) Water infrastructure and optimization.
-                                    </p>
-                                    <div class="space-y-3 font-mono text-[10px]">
-                                        <a href="./Business analysis Assignments/Disseration/Project A research report.pdf" class="flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5 hover:border-white/20 text-gray-300 transition-colors group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-white/10 text-white font-bold">PDF</span> 
-                                                RESEARCH_REPORT.PDF
-                                            </div>
-                                            <i class="fas fa-arrow-right opacity-0 group-hover/link:opacity-100 transition-opacity text-white"></i>
-                                        </a>
-                                        <a href="./Business analysis Assignments/Disseration/Dissertation Portfolio Overview SV.pptx" class="flex items-center justify-between p-3 rounded-lg bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 text-[#0ea5e9] hover:bg-[#0ea5e9]/20 hover:shadow-[0_0_15px_rgba(14,165,233,0.2)] transition-all group/link">
-                                            <div class="flex items-center gap-3">
-                                                <span class="w-8 h-5 rounded flex items-center justify-center bg-[#0ea5e9] text-white font-bold">PPT</span> 
-                                                OVERVIEW_DECK.PPTX
-                                            </div>
-                                            <i class="fas fa-download opacity-70"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+                    <div class="project-links">
+                        <a href="https://www.dropbox.com/scl/fo/216pox0lxjqgb2nlwy4y8/AL0FyGlXykjOJjWEDgZnYmE?rlkey=ix1hrcp8fdupa42ujdw7skkaz&st=akpzz992&dl=0"
+                           class="project-link dropbox"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Open NI Water dissertation files in Dropbox">↗ Open in Dropbox</a>
                     </div>
+                </div>
 
-                    <!-- Accordion Item 4: Guided Projects -->
-                    <div class="glass-panel group">
-                        <details class="group/details">
-                            <summary class="h-20 flex items-center justify-between px-8 cursor-pointer bg-black/10 hover:bg-black/20 transition-colors list-none outline-none">
-                                <div class="flex items-center gap-6 font-sans">
-                                    <div class="w-10 h-10 rounded-full bg-accentPrimary/10 border border-accentPrimary/30 flex items-center justify-center">
-                                        <i class="fas fa-project-diagram text-accentPrimary"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-white font-semibold block text-lg mb-1">Guided Projects</span>
-                                        <div class="flex items-center gap-3 font-mono text-[10px] text-textMuted">
-                                            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded">SELF_DIRECTED</span>
-                                            <span class="bg-accentPrimary/5 border border-accentPrimary/20 text-accentPrimary px-2 py-0.5 rounded shadow-[0_0_8px_rgba(14,165,233,0.2)]">6 DATASETS</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 rounded-full border border-borderColors flex justify-center items-center group-open/details:rotate-180 transition-transform">
-                                    <i class="fas fa-chevron-down text-textMuted text-xs"></i>
-                                </div>
-                            </summary>
-                            
-                            <!-- Content Box -->
-                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-black/20 border-t border-borderColors font-sans">
-                                
-                                <!-- Apple Store Dataset -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Apple Store Dataset</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Exploratory data analysis of App Store components.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Apple%20Store%20Dataset" target="_blank" class="text-accentPrimary text-[10px] font-mono hover:text-white transition-colors bg-accentPrimary/10 border border-accentPrimary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- Clustered HR Data -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentSecondary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Clustered HR Data</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Advanced employee retention clustering logic.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Clustered%20HR%20Data" target="_blank" class="text-accentSecondary text-[10px] font-mono hover:text-white transition-colors bg-accentSecondary/10 border border-accentSecondary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- HR Att -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-white/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">HR Attrition</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Deep dive into attrition drivers across variables.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/HR%20Att" target="_blank" class="text-white/70 text-[10px] font-mono hover:text-white transition-colors bg-white/5 border border-white/20 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- Road accident -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Road Accident Data</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Spatial and temporal analysis of road incidents.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Road%20accident" target="_blank" class="text-accentPrimary text-[10px] font-mono hover:text-white transition-colors bg-accentPrimary/10 border border-accentPrimary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- Spotify wrap 2023 -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-[#0ea5e9]/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Spotify Wrap 2023</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Reconstruction of Spotify Wrapped metrics using Power BI.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Spotify%20wrap%202023" target="_blank" class="text-[#0ea5e9] text-[10px] font-mono hover:text-white transition-colors bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- Wisabi Bank Dataset -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentSecondary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Wisabi Bank Dataset</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Financial transaction modeling and customer segmentation.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Wisabi%20Bank%20Dataset" target="_blank" class="text-accentSecondary text-[10px] font-mono hover:text-white transition-colors bg-accentSecondary/10 border border-accentSecondary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-                            </div>
-                        </details>
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Queen's DataThon 2025: NHS Service Delivery Analysis</span>
+                        <span class="project-badge win">1ST PLACE</span>
                     </div>
-
-                    <!-- Accordion Item 5: Self Projects -->
-                    <div class="glass-panel group">
-                        <details class="group/details">
-                            <summary class="h-20 flex items-center justify-between px-8 cursor-pointer bg-black/10 hover:bg-black/20 transition-colors list-none outline-none">
-                                <div class="flex items-center gap-6 font-sans">
-                                    <div class="w-10 h-10 rounded-full bg-accentSecondary/10 border border-accentSecondary/30 flex items-center justify-center">
-                                        <i class="fas fa-flask text-accentSecondary"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-white font-semibold block text-lg mb-1">Self Projects</span>
-                                        <div class="flex items-center gap-3 font-mono text-[10px] text-textMuted">
-                                            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded">INDEPENDENT</span>
-                                            <span class="bg-accentSecondary/5 border border-accentSecondary/20 text-accentSecondary px-2 py-0.5 rounded shadow-[0_0_8px_rgba(203,213,225,0.2)]">5 DATASETS</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 rounded-full border border-borderColors flex justify-center items-center group-open/details:rotate-180 transition-transform">
-                                    <i class="fas fa-chevron-down text-textMuted text-xs"></i>
-                                </div>
-                            </summary>
-                            
-                            <!-- Content Box -->
-                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-black/20 border-t border-borderColors font-sans">
-                                
-                                <!-- Amazon sales Report -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Amazon Sales Report</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Comprehensive analysis of e-commerce retail data.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/Amazon%20sales%20Report" target="_blank" class="text-accentPrimary text-[10px] font-mono hover:text-white transition-colors bg-accentPrimary/10 border border-accentPrimary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- Bike Share -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentSecondary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Bike Share</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Ridership metrics and utilization modeling.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/Bike%20Share" target="_blank" class="text-accentSecondary text-[10px] font-mono hover:text-white transition-colors bg-accentSecondary/10 border border-accentSecondary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- Sales and Real Estate -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-white/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Sales and Real Estate</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Property valuation forecasting and market trends.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/Sales%20and%20Real%20Estate" target="_blank" class="text-white/70 text-[10px] font-mono hover:text-white transition-colors bg-white/5 border border-white/20 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- US FLight -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">US Flight</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Aviation data and flight latency analytics.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/US%20FLight" target="_blank" class="text-accentPrimary text-[10px] font-mono hover:text-white transition-colors bg-accentPrimary/10 border border-accentPrimary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- superstore -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-[#0ea5e9]/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Superstore</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Retail profitability and supply chain metrics.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/superstore" target="_blank" class="text-[#0ea5e9] text-[10px] font-mono hover:text-white transition-colors bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Accordion Item 6: Learning & Upskilling -->
-                    <div class="glass-panel group">
-                        <details class="group/details">
-                            <summary class="h-20 flex items-center justify-between px-8 cursor-pointer bg-black/10 hover:bg-black/20 transition-colors list-none outline-none">
-                                <div class="flex items-center gap-6 font-sans">
-                                    <div class="w-10 h-10 rounded-full bg-white/10 border border-white/30 flex items-center justify-center">
-                                        <i class="fas fa-laptop-code text-white"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-white font-semibold block text-lg mb-1">Learning & Upskilling</span>
-                                        <div class="flex items-center gap-3 font-mono text-[10px] text-textMuted">
-                                            <span class="bg-white/5 border border-white/10 px-2 py-0.5 rounded">CONTINUOUS_GROWTH</span>
-                                            <span class="bg-white/5 border border-white/20 text-white/80 px-2 py-0.5 rounded">4 MODULES</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-8 h-8 rounded-full border border-borderColors flex justify-center items-center group-open/details:rotate-180 transition-transform">
-                                    <i class="fas fa-chevron-down text-textMuted text-xs"></i>
-                                </div>
-                            </summary>
-                            
-                            <!-- Content Box -->
-                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-black/20 border-t border-borderColors font-sans">
-                                
-                                <!-- KNIME learning -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-white/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">KNIME Learning</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Visual workflow programming and node based data pipelines.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/KNIME%20learning" target="_blank" class="text-white text-[10px] font-mono hover:text-white transition-colors bg-white/10 border border-white/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- Powerbi skill -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentPrimary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">PowerBI Upskilling</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">DAX query optimizations and dashboard engineering.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Powerbi%20skill%20adda%20lession" target="_blank" class="text-accentPrimary text-[10px] font-mono hover:text-white transition-colors bg-accentPrimary/10 border border-accentPrimary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- R learning -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-accentSecondary/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">R Learning</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Statistical computing, data wrangling, and ggplot scripting.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/R%20learning" target="_blank" class="text-accentSecondary text-[10px] font-mono hover:text-white transition-colors bg-accentSecondary/10 border border-accentSecondary/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                                <!-- SQL Access -->
-                                <div class="bg-white/[0.02] border border-borderColors rounded-2xl p-6 hover:border-[#0ea5e9]/40 transition-all flex flex-col">
-                                    <h4 class="text-white font-semibold text-sm mb-2 uppercase">Learning SQL Access</h4>
-                                    <p class="text-gray-400 font-light text-xs mb-4 flex-grow">Relational database query architecture and joins.</p>
-                                    <a href="https://github.com/Meetshahgit/Data_learning/tree/main/learning%20SQL%20Access" target="_blank" class="text-[#0ea5e9] text-[10px] font-mono hover:text-white transition-colors bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 rounded py-2 text-center uppercase tracking-wider block">ACCESS_DIR <i class="fas fa-external-link-alt ml-1"></i></a>
-                                </div>
-
-                            </div>
-                        </details>
-                    </div>
-
+                    <p class="project-tech">SQL &middot; Data Visualisation &middot; KPI Dashboards &middot; GDPR Framework</p>
+                    <p class="project-desc">
+                        Won 1st place at the Queen's University Belfast DataThon 2025. Delivered end-to-end analysis
+                        of NHS service delivery data under real-time competition pressure, including KPI dashboards
+                        and a GDPR-compliant reporting framework. Findings described by judges as immediately actionable.
+                    </p>
                 </div>
             </div>
 
-        </section>
+            <!-- SEMESTER 1 -->
+            <div class="project-group">
+                <div class="group-header">
+                    <span class="group-title">Semester 1 / Autumn 2024</span>
+                    <span class="group-meta">8 FILES ALLOCATED</span>
+                    <a href="https://www.dropbox.com/scl/fo/krudmdw2gp55d5o9lzzw6/AJ4gnAnMhXSXuCfh3BQuhg0?rlkey=unh0ciyz6rqynjafyju0uwqhh&st=rmamnc9f&dl=0"
+                       class="group-dropbox-link"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Open Semester 1 folder in Dropbox">[ Dropbox ↗ ]</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">AI in Business: MODULE_01</span>
+                        <span class="project-badge">AUTUMN_2024</span>
+                    </div>
+                    <p class="project-tech">Research Analysis &middot; Enterprise AI &middot; Presentation</p>
+                    <p class="project-desc">
+                        Concise analysis of AI implementation and its transformative outcomes within enterprise
+                        business environments.
+                    </p>
+                    <div class="project-files">
+                        <span class="file-tag">PDF PROBLEM_STATEMENT.PDF</span>
+                        <span class="file-tag">MP4 VIDEO_PRESENTATION.MP4</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.dropbox.com/scl/fo/krudmdw2gp55d5o9lzzw6/AJ4gnAnMhXSXuCfh3BQuhg0?rlkey=unh0ciyz6rqynjafyju0uwqhh&st=rmamnc9f&dl=0"
+                           class="project-link dropbox"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Open Semester 1 project files in Dropbox">↗ Open in Dropbox</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">HR Analytics: MODULE_02</span>
+                        <span class="project-badge">AUTUMN_2024</span>
+                    </div>
+                    <p class="project-tech">Tableau &middot; Data Storytelling &middot; Workforce Metrics &middot; Power BI</p>
+                    <p class="project-desc">
+                        Data storytelling and visualisation of HR attrition data, extracting complex workforce metrics
+                        into actionable board-level insights.
+                    </p>
+                    <div class="project-files">
+                        <span class="file-tag">DOC STORYBOARD.DOCX</span>
+                        <span class="file-tag">TWB TABLEAU_DASHBOARD.TWB</span>
+                        <span class="file-tag">PPT SLIDE_DECK.PPTX</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.dropbox.com/scl/fo/krudmdw2gp55d5o9lzzw6/AJ4gnAnMhXSXuCfh3BQuhg0?rlkey=unh0ciyz6rqynjafyju0uwqhh&st=rmamnc9f&dl=0"
+                           class="project-link dropbox"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Open Semester 1 project files in Dropbox">↗ Open in Dropbox</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEMESTER 2 -->
+            <div class="project-group">
+                <div class="group-header">
+                    <span class="group-title">Semester 2 / Spring 2025</span>
+                    <span class="group-meta">IN_PROGRESS</span>
+                    <a href="https://www.dropbox.com/scl/fo/rawy86alzfsoljq0v4pv6/ABWWMf6-H2Au6hw-IWjvNJU?rlkey=coojlktlt5g67wagdj44dkj89&st=p1nr4gc3&dl=0"
+                       class="group-dropbox-link"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Open Semester 2 folder in Dropbox">[ Dropbox ↗ ]</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Advanced Machine Learning: AML_01</span>
+                        <span class="project-badge">SPRING_2025</span>
+                    </div>
+                    <p class="project-tech">Python &middot; Scikit-learn &middot; Model Evaluation &middot; Feature Engineering</p>
+                    <p class="project-desc">
+                        Exploration and implementation of advanced machine learning protocols across two assignments.
+                    </p>
+                    <div class="project-files">
+                        <span class="file-tag">DIR ASSIGNMENT_01</span>
+                        <span class="file-tag">DIR ASSIGNMENT_02</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.dropbox.com/scl/fo/rawy86alzfsoljq0v4pv6/ABWWMf6-H2Au6hw-IWjvNJU?rlkey=coojlktlt5g67wagdj44dkj89&st=p1nr4gc3&dl=0"
+                           class="project-link dropbox"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Open Semester 2 project files in Dropbox">↗ Open in Dropbox</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Marketing Analytics: MKTG_01</span>
+                        <span class="project-badge">SPRING_2025</span>
+                    </div>
+                    <p class="project-tech">R &middot; RFM Analysis &middot; K-Means Clustering &middot; ANOVA &middot; Tableau</p>
+                    <p class="project-desc">
+                        Customer RFM analysis, clustering, and ANOVA testing for targeted campaign segmentation.
+                        Logistic regression models achieved AUC 0.85 with conversion uplift projected at 12.5%.
+                    </p>
+                    <div class="project-files">
+                        <span class="file-tag">PDF MARKETING_REPORT.PDF</span>
+                        <span class="file-tag">TWB TABLEAU_WORKBOOK.TWB</span>
+                        <span class="file-tag">CSV RFM_ANALYSIS.CSV</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.dropbox.com/scl/fo/rawy86alzfsoljq0v4pv6/ABWWMf6-H2Au6hw-IWjvNJU?rlkey=coojlktlt5g67wagdj44dkj89&st=p1nr4gc3&dl=0"
+                           class="project-link dropbox"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Open Semester 2 project files in Dropbox">↗ Open in Dropbox</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Data Mining: DMIN_01</span>
+                        <span class="project-badge">SPRING_2025</span>
+                    </div>
+                    <p class="project-tech">Python &middot; NLP &middot; Sentiment Analysis &middot; Jupyter Notebook</p>
+                    <p class="project-desc">
+                        Airline review analysis using IPython notebook models for sentiment classification and
+                        pattern extraction across customer feedback data.
+                    </p>
+                    <div class="project-files">
+                        <span class="file-tag">DOC DATA_MINING.DOCX</span>
+                        <span class="file-tag">CSV AIRLINE_REVIEWS.CSV</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.dropbox.com/scl/fo/rawy86alzfsoljq0v4pv6/ABWWMf6-H2Au6hw-IWjvNJU?rlkey=coojlktlt5g67wagdj44dkj89&st=p1nr4gc3&dl=0"
+                           class="project-link dropbox"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Open Semester 2 project files in Dropbox">↗ Open in Dropbox</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">D3M Optimisation: D3M_01</span>
+                        <span class="project-badge">SPRING_2025</span>
+                    </div>
+                    <p class="project-tech">MILP &middot; Integer Linear Programming &middot; Operations Research</p>
+                    <p class="project-desc">
+                        Integer linear programming via MILP models for laptop manufacturing optimisation.
+                    </p>
+                    <div class="project-files">
+                        <span class="file-tag">DOC D3M_ASSIGNMENT.DOCX</span>
+                        <span class="file-tag">PDF MILP_MODEL.PDF</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.dropbox.com/scl/fo/rawy86alzfsoljq0v4pv6/ABWWMf6-H2Au6hw-IWjvNJU?rlkey=coojlktlt5g67wagdj44dkj89&st=p1nr4gc3&dl=0"
+                           class="project-link dropbox"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="Open Semester 2 project files in Dropbox">↗ Open in Dropbox</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             MAJOR SECTION: PROJECTS
+             ══════════════════════════════ -->
+        <div class="major-section">
+            <div class="major-section-header">
+                <h2 class="major-section-title">Projects</h2>
+                <span class="major-section-pill personal">GitHub</span>
+            </div>
+
+            <!-- GUIDED PROJECTS -->
+            <div class="project-group">
+                <div class="group-header">
+                    <span class="group-title">Guided Projects</span>
+                    <span class="group-meta">SELF_DIRECTED / 5 DATASETS</span>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Wisabi Bank: ATM Transaction Analytics</span>
+                        <span class="project-badge">GUIDED</span>
+                    </div>
+                    <p class="project-tech">SQL &middot; Star Schema &middot; Power BI &middot; Looker Studio</p>
+                    <p class="project-desc">
+                        Designed a Star Schema data model across 2M+ ATM transactions. Built Power BI and
+                        Looker Studio dashboards surfacing transaction trends, peak usage, and regional patterns.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/Wisabi%20Bank%20Dataset"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Wisabi Bank project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Apple Store Dataset: App Store EDA</span>
+                        <span class="project-badge">GUIDED</span>
+                    </div>
+                    <p class="project-tech">SQL &middot; Exploratory Data Analysis &middot; CSV</p>
+                    <p class="project-desc">Exploratory data analysis of App Store application data using SQL. Analysed ratings, genres, and pricing patterns across thousands of apps.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Apple%20Store%20Dataset"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Apple Store Dataset project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Clustered HR Data: Employee Retention Analysis</span>
+                        <span class="project-badge">GUIDED</span>
+                    </div>
+                    <p class="project-tech">Power BI &middot; Clustering &middot; HR Analytics</p>
+                    <p class="project-desc">Advanced employee retention clustering logic and attrition driver analysis across workforce demographics and performance data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Clustered%20HR%20Data"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Clustered HR Data project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Road Accident Data: Spatial and Temporal Analysis</span>
+                        <span class="project-badge">GUIDED</span>
+                    </div>
+                    <p class="project-tech">Excel &middot; Power BI &middot; Geospatial Analysis</p>
+                    <p class="project-desc">Spatial and temporal analysis of road incidents across UK datasets, identifying high-risk locations, time patterns, and contributing factors.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Road%20accident"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Road Accident project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Spotify Wrapped 2023: Power BI Reconstruction</span>
+                        <span class="project-badge">GUIDED</span>
+                    </div>
+                    <p class="project-tech">Power BI &middot; DAX &middot; Data Modelling</p>
+                    <p class="project-desc">Reconstruction of Spotify Wrapped metrics and listening analytics using Power BI, replicating the year-in-review dashboard from raw streaming data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Guided%20projects/Spotify%20wrap%202023"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Spotify Wrapped project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELF PROJECTS -->
+            <div class="project-group">
+                <div class="group-header">
+                    <span class="group-title">Self Projects</span>
+                    <span class="group-meta">INDEPENDENT / 4 DATASETS</span>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Banking: Customer Retention Analysis</span>
+                        <span class="project-badge">INDEPENDENT</span>
+                    </div>
+                    <p class="project-tech">Excel &middot; Power BI &middot; Customer Analytics</p>
+                    <p class="project-desc">Customer churn and retention analysis for a banking dataset. Modelled exit behaviour using demographic, credit card, and account data to identify at-risk customer segments.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/Banking"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Banking project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Sales Performance Analysis: Grocery Store</span>
+                        <span class="project-badge">INDEPENDENT</span>
+                    </div>
+                    <p class="project-tech">Power BI &middot; Excel &middot; Retail Analytics</p>
+                    <p class="project-desc">Grocery store sales performance analysis using Power BI. Built dashboards to track revenue trends, category performance, and store-level KPIs.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/Sales%20Performance%20Analysis"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Sales Performance Analysis project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Sales and Real Estate: Market Analysis</span>
+                        <span class="project-badge">INDEPENDENT</span>
+                    </div>
+                    <p class="project-tech">Excel &middot; Data Analysis &middot; Property Analytics</p>
+                    <p class="project-desc">Property valuation and sales trend analysis across real estate datasets, identifying market patterns and pricing insights.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/Sales%20and%20Real%20Estate"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Sales and Real Estate project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-top">
+                        <span class="project-name">Superstore: Retail Profitability Analysis</span>
+                        <span class="project-badge">INDEPENDENT</span>
+                    </div>
+                    <p class="project-tech">Power BI &middot; Excel &middot; Supply Chain Analytics</p>
+                    <p class="project-desc">Retail profitability and supply chain metrics analysis across the Superstore dataset, covering regional performance, discount impact, and category margins.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Meetshahgit/Data_learning/tree/main/Self%20Projects/superstore"
+                           class="project-link"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="View Superstore project on GitHub">↗ View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- GitHub profile note -->
+        <div class="github-note">
+            <span class="github-note-label">// MORE_PROJECTS</span>
+            <p>
+                For all learning projects and additional work, visit my GitHub profile:
+                <a href="https://github.com/Meetshahgit"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Visit Meet Shah's GitHub profile">github.com/Meetshahgit ↗</a>
+            </p>
+        </div>
+
     </main>
 
-    <!-- Base Footer -->
-    <footer class="w-full border-t border-borderColors bg-black/20 py-8 relative z-10 font-mono">
-        <div class="container mx-auto px-6 text-center flex flex-col items-center gap-2">
-            <span class="text-xs text-textMuted tracking-widest uppercase">
-                <i class="fas fa-server mr-2"></i> SYSTEM_EOF // © <span id="year"></span> MEET SHAH.
-            </span>
-        </div>
+    <footer>
+        &copy; 2025 Meet Shah &nbsp;&middot;&nbsp; Belfast, UK
     </footer>
 
-    <!-- JS Logic -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('year').textContent = new Date().getFullYear();
-
-            // Smooth Scroll Reveal
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-            // Active Nav link highlight
-            const navItems = document.querySelectorAll('.nav-link');
-            const currentPath = window.location.pathname;
-            
-            navItems.forEach(item => {
-                const href = item.getAttribute('href');
-                if (currentPath.endsWith(href) || (currentPath.endsWith('/') && href === 'projects.html')) {
-                    item.classList.add('text-white', 'bg-white/10', 'px-3', 'py-1', 'rounded-full');
-                    item.classList.remove('text-textMuted');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
-
